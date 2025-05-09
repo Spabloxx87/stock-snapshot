@@ -2,9 +2,8 @@ name: Fetch Stock Snapshot
 
 on:
   schedule:
-    # Every 20 minutes from 9 to 21 UTC Monday to Friday
-    - cron: '*/20 9-20 * * 1-5'
-  workflow_dispatch:  # lets you run manually too
+    - cron: '*/20 9-20 * * 1-5'  # every 20 min 9–20 UTC, Mon–Fri
+  workflow_dispatch:
 
 jobs:
   fetch:
@@ -12,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,7 +25,7 @@ jobs:
         run: python snapshot.py
 
       - name: Upload CSV artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: stock_snapshot
           path: stock_snapshot.csv
