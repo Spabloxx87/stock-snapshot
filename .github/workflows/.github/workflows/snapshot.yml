@@ -1,0 +1,32 @@
+name: Fetch Stock Snapshot
+
+on:
+  schedule:
+    # Every 20 minutes from 9 to 21 UTC Monday to Friday
+    - cron: '*/20 9-20 * * 1-5'
+  workflow_dispatch:  # lets you run manually too
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install yfinance pandas
+
+      - name: Run snapshot script
+        run: python snapshot.py
+
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: stock_snapshot
+          path: stock_snapshot.csv
