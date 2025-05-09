@@ -2,7 +2,8 @@ name: Fetch Stock Snapshot
 
 on:
   schedule:
-    - cron: '*/20 9-20 * * 1-5'  # every 20 min 9–20 UTC, Mon–Fri
+    - cron: '*/20 9-20 * * 1-5' # every 20 min 9–20 UTC, Mon–Fri
+    
   workflow_dispatch:
 
 jobs:
